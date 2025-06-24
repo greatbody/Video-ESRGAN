@@ -64,3 +64,54 @@ After installation, verify that both tools are available:
 ffmpeg -version
 ./realesrgan-ncnn-vulkan -h
 ```
+
+## Usage
+
+### Basic Usage
+To enhance a video, simply run the `enlarge` script with your input video file:
+
+```bash
+./enlarge input_video.mp4
+```
+
+### What the Script Does
+1. **Extracts frames** from your input video using FFmpeg
+2. **Enhances each frame** using Real-ESRGAN with the `realesr-animevideov3` model (2x upscaling)
+3. **Merges enhanced frames** back into a new video while preserving the original audio
+
+### Output
+The script generates:
+- **Enhanced video**: `enhanced_YYYYMMDD_HHMMSS.mp4` - Your upscaled video
+- **Temporary folders**:
+  - `tmp_frames_YYYYMMDD_HHMMSS/` - Original extracted frames
+  - `out_frames_YYYYMMDD_HHMMSS/` - Enhanced frames
+
+### Features
+- ✅ **Progress tracking** with real-time progress bar and ETA
+- ✅ **Automatic framerate detection** from source video
+- ✅ **Audio preservation** - copies original audio to enhanced video
+- ✅ **Unique timestamped outputs** - prevents file conflicts
+- ✅ **Error handling** with detailed feedback
+- ✅ **Processing statistics** - shows total time and frames processed
+
+### Example
+```bash
+# Make the script executable (first time only)
+chmod +x enlarge
+
+# Enhance a video
+./enlarge my_video.mp4
+
+# Output will be something like:
+# enhanced_20241224_143052.mp4
+```
+
+### Tips
+- The script uses the `realesr-animevideov3` model which works well for anime/cartoon content
+- Processing time depends on video length, resolution, and your hardware
+- You can safely delete the temporary frame folders after processing
+- For best results, ensure your input video has good quality (not heavily compressed)
+
+## Example Files
+
+Check the `example/` directory for sample input and output files to test the script.
